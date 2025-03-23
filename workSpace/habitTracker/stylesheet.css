@@ -1,1 +1,22 @@
-
+body {
+  font-family: Arial, sans-serif;
+  background: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  text-align: center;
+}
+h1 {
+  text-align: left;
+  font-weight: 100;
+}
+.container {
+  background: #faf8ec;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  width: 321px;
+  height: 744px;
+}
