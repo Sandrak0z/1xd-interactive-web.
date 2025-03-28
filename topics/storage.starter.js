@@ -18,3 +18,4 @@
 // hint: you can use JSON.stringify to convert an array to string
 // hint: you can use JSON.parse to convert a string to array
 // hint: you can use appendChild to add a new li to the ul#movieList
+// make sure to load the movies from localstorage when the page loads

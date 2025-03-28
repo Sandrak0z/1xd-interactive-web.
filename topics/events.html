@@ -40,6 +40,10 @@
     </nav>
     <header>
         <h1>Events</h1>
+        <section class="info">
+            <p>Events allow us to respond to use input like typing, clicking or moving the mouse somewhere.</p>
+            <p id="demo">Just hover your mouse cursor over this sentence to see a <em>mouseover</em> event in action.</p>
+        </section>
         <h2>Resources</h2>
         <h3>Videos</h3>
         <ul>
@@ -96,7 +100,38 @@
                 </div>
             </div>
         </div>
+
+
+        <div>
+            <h4>5 — toggle checkbox</h4>
+            <p>Show or hide the div#toggle based on checkbox selection</p>
+            
+            <div style="margin-bottom: 1em;">
+                <input type="checkbox" id="onOff" checked>
+                <label for="onOff">Toggle the div</label>
+            </div>
+
+            <div id="toggle">Hello 👋🏼</div>
+        </div>
     </section>
+
+    <footer>
+        <div class="credits">
+            <a href="https://www.goodbytes.be/"><img class="credits__avatar" src="../images/goodbytes.jpg" alt="GoodBytes — Web Developer"></a>
+            <p class="credits__text">Created by your coding friend GoodBytes.be</p>
+        </div>
+    </footer>
+
+    <script>
+        // mouseover #demo should color it, mouseout should remove the color
+        const demo = document.getElementById('demo');
+        demo.addEventListener('mouseover', () => {
+            demo.style.color = 'red';
+        });
+        demo.addEventListener('mouseout', () => {
+            demo.style.color = '';
+        });
+    </script>
 
     <script src="events.starter.js"></script>
 </body>

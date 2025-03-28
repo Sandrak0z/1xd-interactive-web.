@@ -20,4 +20,8 @@
 // 4 — Similar to question number 2, this time use event bubbling to change the background color of the squares in #bubbleZone
 // hint: with event bubbling you can select the parent element and listen for events on its children to avoid adding multiple event listeners
 
-// 5 — Bonus: use mouseout to change the background color back to the original one on the squares in question 2 or 4
+// 4b — Bonus: use mouseout to change the background color back to the original one on the squares in question 2 or 4
+
+// 5 - When the checkbox is selected/checked, show #toggle
+// when the checkbox is not checked, hide #toggle
+// hint: use the .checked property of the checkbox
