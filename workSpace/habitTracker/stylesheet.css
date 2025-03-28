@@ -52,6 +52,10 @@ li {
   margin: 5px 0;
   border-radius: 5px;
 }
+.date {
+  font-size: 14px;
+  text-align: end;
+}
 .delete-btn {
   background: pink;
   color: white;
@@ -171,4 +175,18 @@ li {
   color: #999;
   margin: 0;
 }
-
+.button-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(71, 71, 71);
+  padding: 10px;
+}
+.button-container img {
+  height: 37px;
+}
+.add-habit {
+  height: 40px;
+  border-radius: 15px;
+}
