@@ -4,7 +4,7 @@ function showDayData(day) {
   const habitContainer = document.getElementById("habit-container");
   habitContainer.innerHTML = "";
   const dateElement = document.getElementById("date");
-  dateElement.textContent = `Today is day ${day}`;
+  dateElement.textContent = `Today is the ${day}`;
   if (habits[day]) {
     habits[day].forEach((habit, index) => {
       const habitHTML = `
