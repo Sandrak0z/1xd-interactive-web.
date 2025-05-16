@@ -14,7 +14,7 @@ function renderCalendar() {
   for (let day = 1; day <= daysInMonth; day++) {
     const dateObj = new Date(year, month, day);
     const weekday = dateObj
-      .toLocaleDateString("en-BE", { weekday: "short" })
+      .toLocaleDateString("en-US", { weekday: "short" })
       .toUpperCase();
     const dayEl = document.createElement("div");
     dayEl.className = "day";
@@ -93,29 +93,54 @@ function showDayData(date) {
     });
   }
 }
+function updateSelectedDay() {
+  const dayEls = document.querySelectorAll(".day");
+  dayEls.forEach((el) => el.classList.remove("selected"));
+
+  const day = currentDate.getDate();
+  const calendar = document.getElementById("calendar");
+  const spans = calendar.querySelectorAll("span");
+  spans.forEach((span) => {
+    if (parseInt(span.textContent) === day) {
+      span.parentElement.classList.add("selected");
+    }
+  });
+}
 
 function addHabit() {
   const overlay = document.getElementById("overlay");
   overlay.style.display = "block";
 }
-
 function saveHabit() {
   const habitName = document.getElementById("habit-name").value;
   const habitTime = document.getElementById("habit-time").value;
   const habitActivity = document.getElementById("habit-activity").value;
   const icon = getIcon(habitActivity);
-  const day = document.querySelector(".day.selected span").textContent.trim();
+  const dateKey = currentDate.toISOString().split("T")[0];
 
-  if (!habits[day]) {
-    habits[day] = [];
+  if (!habits[dateKey]) {
+    habits[dateKey] = [];
   }
-  habits[day].push({ name: habitName, time: habitTime, icon: icon });
+
+  habits[dateKey].push({ name: habitName, time: habitTime, icon: icon });
   localStorage.setItem("habits", JSON.stringify(habits));
-  showDayData(day);
+  showDayData(currentDate);
   cancelHabit();
 }
+document.getElementById("prevDay").addEventListener("click", () => {
+  currentDate.setDate(currentDate.getDate() - 1);
+  renderCalendar();
+  updateSelectedDay();
+  showDayData(currentDate);
+});
 
-// function to cancel adding new habit
+document.getElementById("nextDay").addEventListener("click", () => {
+  currentDate.setDate(currentDate.getDate() + 1);
+  renderCalendar();
+  updateSelectedDay();
+  showDayData(currentDate);
+});
+
 function cancelHabit() {
   const overlay = document.getElementById("overlay");
   overlay.style.display = "none";
@@ -124,14 +149,12 @@ function cancelHabit() {
   document.getElementById("habit-activity").value = "";
 }
 
-// function to delete habit
 function deleteHabit(day, index) {
   habits[day].splice(index, 1);
   localStorage.setItem("habits", JSON.stringify(habits));
   showDayData(day);
 }
 
-// function to get icon based on activity
 function getIcon(activity) {
   switch (activity) {
     case "walking":
@@ -145,5 +168,44 @@ function getIcon(activity) {
   }
 }
 
-// add event listener to add habit button
+const calendar = document.querySelector(".calendar");
+let isDown = false;
+let startX;
+let scrollLeft;
+
+calendar.addEventListener("mousedown", (e) => {
+  isDown = true;
+  calendar.classList.add("dragging");
+  startX = e.pageX - calendar.offsetLeft;
+  scrollLeft = calendar.scrollLeft;
+});
+
+calendar.addEventListener("mouseleave", () => {
+  isDown = false;
+  calendar.classList.remove("dragging");
+});
+
+calendar.addEventListener("mouseup", () => {
+  isDown = false;
+  calendar.classList.remove("dragging");
+});
+
+calendar.addEventListener("mousemove", (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - calendar.offsetLeft;
+  const walk = (x - startX) * 1.5;
+  calendar.scrollLeft = scrollLeft - walk;
+});
+
+window.onload = () => {
+  fillMonthDropdown();
+  renderCalendar();
+  updateSelectedDay();
+  showDayData(currentDate);
+};
+
 document.querySelector(".add-habit").addEventListener("click", addHabit);
+document.getElementById("monthSelect").addEventListener("change", setMonth);
+
+showDayData(currentDate);
