@@ -28,6 +28,31 @@ function renderCalendar() {
     calendarEl.appendChild(dayEl);
   }
 }
+function fillMonthDropdown() {
+  const monthSelect = document.getElementById("monthSelect");
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  monthNames.forEach((month, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = month;
+    if (index === currentDate.getMonth()) option.selected = true;
+    monthSelect.appendChild(option);
+  });
+}
 
 function setMonth() {
   const selectedMonth = parseInt(document.getElementById("monthSelect").value);
