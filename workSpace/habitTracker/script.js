@@ -1,12 +1,54 @@
 const habits = JSON.parse(localStorage.getItem("habits")) || {};
 
-function showDayData(day) {
+let currentDate = new Date();
+function renderCalendar() {
+  const calendarEl = document.getElementById("calendar");
+  calendarEl.innerHTML = "";
+
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const today = currentDate.getDate();
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateObj = new Date(year, month, day);
+    const weekday = dateObj
+      .toLocaleDateString("en-BE", { weekday: "short" })
+      .toUpperCase();
+    const dayEl = document.createElement("div");
+    dayEl.className = "day";
+    if (day === today) dayEl.classList.add("selected");
+    dayEl.innerHTML = `${weekday}<br /><span>${day}</span>`;
+    dayEl.onclick = () => {
+      currentDate.setDate(day);
+      updateSelectedDay();
+      showDayData(currentDate);
+    };
+    calendarEl.appendChild(dayEl);
+  }
+}
+
+function setMonth() {
+  const selectedMonth = parseInt(document.getElementById("monthSelect").value);
+  currentDate.setMonth(selectedMonth);
+  currentDate.setDate(1);
+
+  renderCalendar();
+  updateSelectedDay();
+  showDayData(currentDate);
+}
+
+function showDayData(date) {
+  const dayKey = date.toISOString().split("T")[0];
   const habitContainer = document.getElementById("habit-container");
   habitContainer.innerHTML = "";
+
   const dateElement = document.getElementById("date");
-  dateElement.textContent = `Today is the ${day}`;
-  if (habits[day]) {
-    habits[day].forEach((habit, index) => {
+  dateElement.textContent = `Selected: ${dayKey}`;
+
+  if (habits[dayKey]) {
+    habits[dayKey].forEach((habit, index) => {
       const habitHTML = `
         <div class="habit" id="habit-${index}">
           <div class="habit-icon">${habit.icon}</div>
@@ -19,23 +61,14 @@ function showDayData(day) {
             <div class="habit-time-icon"> <img src="img/clock-1.png" alt=""></div>
             <p>${habit.time} min</p>
           </div>
-          <button class="delete-habit" onclick="deleteHabit(${day}, ${index})">Delete</button>
+          <button class="delete-habit" onclick="deleteHabit('${dayKey}', ${index})">Delete</button>
         </div>
       `;
       habitContainer.insertAdjacentHTML("beforeend", habitHTML);
     });
   }
-  const days = document.querySelectorAll(".day span");
-  let currentDayElement;
-  days.forEach((span) => {
-    if (span.textContent.trim() === day) {
-      currentDayElement = span.parentElement;
-    }
-  });
-  if (currentDayElement) {
-    currentDayElement.classList.add("selected");
-  }
 }
+
 function addHabit() {
   const overlay = document.getElementById("overlay");
   overlay.style.display = "block";
@@ -89,6 +122,3 @@ function getIcon(activity) {
 
 // add event listener to add habit button
 document.querySelector(".add-habit").addEventListener("click", addHabit);
-
-// show day data for the selected day
-showDayData(17);
