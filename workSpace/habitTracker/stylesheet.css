@@ -12,6 +12,14 @@ h1 {
   text-align: left;
   font-weight: 100;
 }
+#prevDay,
+#nextDay {
+  background: transparent;
+  color: black;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
 
 .container {
   position: relative;
@@ -85,6 +93,7 @@ li {
   white-space: nowrap;
   padding: 5px;
   border-radius: 10px;
+  width: 260px;
 }
 .day {
   background: #eeeeee00;
@@ -274,4 +283,21 @@ li {
   border-radius: 15px;
   padding: 12px;
   margin-bottom: 10px;
+}
+
+.calendar {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 5px;
+  border-radius: 10px;
+  width: 260px;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  user-select: none;
+}
+.calendar::-webkit-scrollbar {
+  display: none;
 }

@@ -194,7 +194,7 @@ calendar.addEventListener("mousemove", (e) => {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - calendar.offsetLeft;
-  const walk = (x - startX) * 1.5;
+  const walk = (x - startX) * 1.5; 
   calendar.scrollLeft = scrollLeft - walk;
 });
 
