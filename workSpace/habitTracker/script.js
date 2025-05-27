@@ -86,7 +86,7 @@ function showDayData(date) {
             <div class="habit-time-icon"> <img src="img/clock-1.png" alt=""></div>
             <p>${habit.time} min</p>
           </div>
-          <button class="delete-habit" onclick="deleteHabit('${dayKey}', ${index})">Delete</button>
+          <button class="delete-habit" onclick="deleteHabit('${dayKey}', ${index})">x</button>
         </div>
       `;
       habitContainer.insertAdjacentHTML("beforeend", habitHTML);
@@ -194,7 +194,7 @@ calendar.addEventListener("mousemove", (e) => {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - calendar.offsetLeft;
-  const walk = (x - startX) * 1.5; 
+  const walk = (x - startX) * 1.5;
   calendar.scrollLeft = scrollLeft - walk;
 });
 

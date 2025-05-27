@@ -45,14 +45,15 @@ input {
 
 button {
   padding: 10px;
-  background: #007bff;
-  color: white;
+  background: #f1f0a9;
+  color: black;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
+  margin-left: 10px;
 }
 button:hover {
-  background: #0c4922;
+  background: #e1e088;
 }
 ul {
   list-style: none;
@@ -224,7 +225,6 @@ li {
   height: 40px;
   border-radius: 15px;
 }
-/* ... existing styles ... */
 
 .overlay {
   position: absolute;
@@ -252,8 +252,8 @@ li {
 .save-habit,
 .cancel-habit {
   padding: 10px;
-  background-color: #007bff;
-  color: #fff;
+  background-color: #e1e088;
+  color: #000000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
