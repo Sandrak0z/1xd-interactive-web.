@@ -151,8 +151,13 @@ function cancelHabit() {
 
 function deleteHabit(day, index) {
   habits[day].splice(index, 1);
+
+  if (habits[day].length === 0) {
+    delete habits[day];
+  }
+
   localStorage.setItem("habits", JSON.stringify(habits));
-  showDayData(day);
+  showDayData(new Date(day));
 }
 
 function getIcon(activity) {
@@ -163,6 +168,8 @@ function getIcon(activity) {
       return "📖";
     case "sleeping":
       return "🛏";
+    case "other":
+      return "😁";
     default:
       return "";
   }
